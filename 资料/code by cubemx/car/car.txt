@@ -1,0 +1,165 @@
+Configuration	car
+STM32CubeMX 	4.22.0
+Date	06/30/2018
+MCU	STM32F407VETx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN8	ADC1_IN8	PB0
+ADC1	IN9	ADC1_IN9	PB1
+ADC1	IN10	ADC1_IN10	PC0
+ADC1	IN11	ADC1_IN11	PC1
+ADC1	IN12	ADC1_IN12	PC2
+ADC1	IN13	ADC1_IN13	PC3
+ADC1	IN14	ADC1_IN14	PC4
+ADC1	IN15	ADC1_IN15	PC5
+I2C1	I2C	I2C1_SCL	PB6
+I2C1	I2C	I2C1_SDA	PB7
+RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	PH0-OSC_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PH1-OSC_OUT
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_IN	PC14-OSC32_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC32_OUT	PC15-OSC32_OUT
+RTC	Activate Clock Source	RTC_VS_RTC_Activate	VP_RTC_VS_RTC_Activate
+RTC	Activate Calendar	RTC_VS_RTC_Calendar	VP_RTC_VS_RTC_Calendar
+SDIO	SD 4 bits Wide bus	SDIO_CK	PC12
+SDIO	SD 4 bits Wide bus	SDIO_CMD	PD2
+SDIO	SD 4 bits Wide bus	SDIO_D0	PC8
+SDIO	SD 4 bits Wide bus	SDIO_D1	PC9
+SDIO	SD 4 bits Wide bus	SDIO_D2	PC10
+SDIO	SD 4 bits Wide bus	SDIO_D3	PC11
+SPI1	Full-Duplex Master	SPI1_MISO	PA6
+SPI1	Full-Duplex Master	SPI1_MOSI	PA7
+SPI1	Full-Duplex Master	SPI1_SCK	PA5
+SPI1	Hardware NSS Output Signal	SPI1_NSS	PA4
+SPI2	Full-Duplex Master	SPI2_MISO	PB14
+SPI2	Full-Duplex Master	SPI2_MOSI	PB15
+SPI2	Full-Duplex Master	SPI2_SCK	PB13
+SPI2	Hardware NSS Output Signal	SPI2_NSS	PB12
+SPI3	Full-Duplex Master	SPI3_MISO	PB4
+SPI3	Full-Duplex Master	SPI3_MOSI	PB5
+SPI3	Full-Duplex Master	SPI3_SCK	PB3
+SYS	Serial Wire	SYS_JTCK-SWCLK	PA14
+SYS	Serial Wire	SYS_JTMS-SWDIO	PA13
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+TIM1	Output Compare CH1	TIM1_CH1	PE9
+TIM1	Output Compare CH2	TIM1_CH2	PE11
+TIM2	PWM Generation CH3	TIM2_CH3	PB10
+TIM2	PWM Generation CH4	TIM2_CH4	PB11
+TIM4	Internal Clock	TIM4_VS_ClockSourceINT	VP_TIM4_VS_ClockSourceINT
+TIM4	PWM Generation CH1	TIM4_CH1	PD12
+TIM4	PWM Generation CH2	TIM4_CH2	PD13
+TIM5	Internal Clock	TIM5_VS_ClockSourceINT	VP_TIM5_VS_ClockSourceINT
+TIM5	PWM Generation CH1	TIM5_CH1	PA0-WKUP
+TIM5	PWM Generation CH2	TIM5_CH2	PA1
+TIM5	PWM Generation CH3	TIM5_CH3	PA2
+TIM5	Output Compare CH4	TIM5_CH4	PA3
+USART1	Asynchronous	USART1_RX	PA10
+USART1	Asynchronous	USART1_TX	PA9
+USART2	Asynchronous	USART2_RX	PD6
+USART2	Asynchronous	USART2_TX	PD5
+USART3	Asynchronous	USART3_RX	PD9
+USART3	Asynchronous	USART3_TX	PD8
+USB_OTG_FS	Device_Only	USB_OTG_FS_DM	PA11
+USB_OTG_FS	Device_Only	USB_OTG_FS_DP	PA12
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+1	PE2	GPIO_Output	T_DIN
+2	PE3	GPIO_Output	T_CS
+3	PE4	GPIO_Output	T_SCK
+4	PE5	GPIO_Input	KEY_2
+5	PE6	GPIO_Input	KEY_1
+8	PC14-OSC32_IN	RCC_OSC32_IN	
+9	PC15-OSC32_OUT	RCC_OSC32_OUT	
+12	PH0-OSC_IN	RCC_OSC_IN	
+13	PH1-OSC_OUT	RCC_OSC_OUT	
+15	PC0	ADC1_IN10	
+16	PC1	ADC1_IN11	
+17	PC2	ADC1_IN12	
+18	PC3	ADC1_IN13	
+23	PA0-WKUP	TIM5_CH1	
+24	PA1	TIM5_CH2	
+25	PA2	TIM5_CH3	
+26	PA3	TIM5_CH4	
+29	PA4	SPI1_NSS	
+30	PA5	SPI1_SCK	
+31	PA6	SPI1_MISO	
+32	PA7	SPI1_MOSI	
+33	PC4	ADC1_IN14	
+34	PC5	ADC1_IN15	
+35	PB0	ADC1_IN8	
+36	PB1	ADC1_IN9	
+37	PB2	GPIO_Output	LED_R
+38	PE7	GPIO_Output	LED_G
+39	PE8	GPIO_Output	LED_B
+40	PE9	TIM1_CH1	
+41	PE10	GPIO_Output	MOT_A1
+42	PE11	TIM1_CH2	
+43	PE12	GPIO_Output	MOT_A2
+44	PE13	GPIO_Output	MOT_B1
+45	PE14	GPIO_Output	MOT_B2
+47	PB10	TIM2_CH3	
+48	PB11	TIM2_CH4	
+51	PB12	SPI2_NSS	
+52	PB13	SPI2_SCK	
+53	PB14	SPI2_MISO	
+54	PB15	SPI2_MOSI	
+55	PD8	USART3_TX	
+56	PD9	USART3_RX	
+59	PD12	TIM4_CH1	
+60	PD13	TIM4_CH2	
+65	PC8	SDIO_D0	
+66	PC9	SDIO_D1	
+68	PA9	USART1_TX	
+69	PA10	USART1_RX	
+70	PA11	USB_OTG_FS_DM	
+71	PA12	USB_OTG_FS_DP	
+72	PA13	SYS_JTMS-SWDIO	
+76	PA14	SYS_JTCK-SWCLK	
+78	PC10	SDIO_D2	
+79	PC11	SDIO_D3	
+80	PC12	SDIO_CK	
+83	PD2	SDIO_CMD	
+84	PD3	GPIO_Output	TFT_D/C
+85	PD4	GPIO_Output	TFT_RESET
+86	PD5	USART2_TX	
+87	PD6	USART2_RX	
+88	PD7	GPIO_Output	TFT_CS
+89	PB3	SPI3_SCK	
+90	PB4	SPI3_MISO	
+91	PB5	SPI3_MOSI	
+92	PB6	I2C1_SCL	
+93	PB7	I2C1_SDA	
+97	PE0	GPIO_EXTI0	T_IRQ
+98	PE1	GPIO_Output	T_DO
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : car
+Project Folder : C:\Users\Administrator\Desktop\Æ÷¼þ×ÊÁÏ\stm32f407\car
+Toolchain / IDE : MDK-ARM V5
+Firmware Package Name and Version : STM32Cube FW_F4 V1.16.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+
