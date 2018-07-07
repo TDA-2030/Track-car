@@ -9,14 +9,12 @@
 
 ## Hardware
 ### 设计中的PCB
-基于STM32F407VET6<br>
-
-![image](https://github.com/TDA-2030/Track-car/blob/master/%E8%B5%84%E6%96%99/pcb.png)
+基于STM32F407VET6 <br>
+![image](https://raw.githubusercontent.com/TDA-2030/Track-car/master/resource/pcb.png)
 PCB design by Huang MengLong <br>
 
 ### platform car
 <img src="https://img.alicdn.com/imgextra/i2/33107920/TB2kydtapXXXXX0XpXXXXXXXXXX_!!33107920.jpg" width="500" height="500"/>
-<img src="https://img.alicdn.com/imgextra/i3/33107920/TB2XhNuapXXXXc3XXXXXXXXXXXX_!!33107920.jpg" width="500" height="800"/>
 
 ### Motor Driver
 <img src="https://gd3.alicdn.com/imgextra/i3/1021319581/T2SpozXghbXXXXXXXX_!!1021319581.jpg" width="600" height="500"/>
