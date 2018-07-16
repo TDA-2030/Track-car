@@ -74,14 +74,33 @@ int main(void)
 	u8 pause=0;			//暂停标记
 	u8 t;
 	u16 temp;
-	u16 *picindextbl;	//图片索引表 　
+	u16 *picindextbl;	//图片索引表 
+	
+	GPIO_InitTypeDef  GPIO_InitStructure;
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOG,ENABLE);	//使能GPIOC的外设时钟
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	//选择要用的GPIO引脚		 
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//设置引脚为普通输出模式		
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//设置引脚为推挽输出
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//设置引脚速度为100MHz
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//设置引脚为上拉 		 
+	GPIO_Init(GPIOB, &GPIO_InitStructure);//调用库函数，初始化GPIO
+	
+	//GPIOB->ODR ^= GPIO_Pin_9;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	delay_init(168);  //初始化延时函数
 	uart_init(115200);		//初始化串口波特率为115200
 	LED_Init();					//初始化LED 
  	LCD_Init();					//LCD初始化  
- 	KEY_Init();					//按键初始化 
-	W25QXX_Init();				//初始化W25Q128
+ 	//KEY_Init();					//按键初始化 
+	//W25QXX_Init();				//初始化W25Q128
+	//GPIOB->ODR ^= GPIO_Pin_9;
+	LCD_DrawLine(1,1,100,100);
+	while(1)
+	{
+		GPIOB->ODR ^= GPIO_Pin_9;
+		delay_ms(200);
+	}
+	
 	my_mem_init(SRAMIN);		//初始化内部内存池 
 	my_mem_init(SRAMCCM);		//初始化CCM内存池 
 	exfuns_init();			//为fatfs相关变量申请内存  

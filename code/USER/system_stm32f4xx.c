@@ -299,7 +299,7 @@
 /* #define USE_HSE_BYPASS */
 
 #if defined (USE_HSE_BYPASS)     
-#define HSE_BYPASS_INPUT_FREQUENCY   8000000
+#define HSE_BYPASS_INPUT_FREQUENCY   25000000
 #endif /* USE_HSE_BYPASS */    
 #endif /* STM32F411xE */
     
@@ -313,10 +313,10 @@
 /************************* PLL Parameters *************************************/
 #if defined (STM32F40_41xxx) || defined (STM32F427_437xx) || defined (STM32F429_439xx) || defined (STM32F401xx)
 /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N */
-#define PLL_M      8
+#define PLL_M      25
 #else /* STM32F411xE */
 #if defined (USE_HSE_BYPASS)
-#define PLL_M      8    
+#define PLL_M      8
 #else /* STM32F411xE */   
 #define PLL_M      16
 #endif /* USE_HSE_BYPASS */
