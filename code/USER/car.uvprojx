@@ -463,6 +463,11 @@
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\src\w25qxx.c</FilePath>
             </File>
+            <File>
+              <FileName>beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\src\beep.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

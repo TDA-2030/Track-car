@@ -27,14 +27,25 @@ Project File Date:  07/16/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'E:\MySoftware\Keil_ARM\ARM\ARMCC\Bin'
 Build target 'CAR'
-"..\OBJ\CAR.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+main.c(169): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		LCD_ShowNum(30,60,Get_Adc_Average(9,3)*5.7,4,16);
+main.c(173): warning:  #128-D: loop is not reachable
+  	while(1)
+main.c(181): warning:  #111-D: statement is unreachable
+  	my_mem_init(SRAMIN);		//初始化内部内存池 
+main.c: 3 warnings, 0 errors
+linking...
+Program Size: Code=20046 RO-data=6806 RW-data=192 ZI-data=1117192  
+FromELF: creating hex file...
+"..\OBJ\CAR.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE
   E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

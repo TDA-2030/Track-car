@@ -149,7 +149,7 @@ void SPI3_Init(void)
 	SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;		//串行同步时钟的空闲状态为高电平
 	SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;	//串行同步时钟的第二个跳变沿（上升或下降）数据被采样
 	SPI_InitStructure.SPI_NSS = SPI_NSS_Soft;		//NSS信号由硬件（NSS管脚）还是软件（使用SSI位）管理:内部NSS信号有SSI位控制
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;		//定义波特率预分频的值:波特率预分频值为256
+	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;		//定义波特率预分频的值:波特率预分频值为256
 	SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;	//指定数据传输从MSB位还是LSB位开始:数据传输从MSB位开始
 	SPI_InitStructure.SPI_CRCPolynomial = 7;	//CRC值计算的多项式
 	SPI_Init(SPI3, &SPI_InitStructure);  //根据SPI_InitStruct中指定的参数初始化外设SPIx寄存器
@@ -341,20 +341,7 @@ void LCD_Scan_Dir(u8 dir)
 	u16 regval=0;
 	u16 dirreg=0;
 	u16 temp;  
-	if((lcddev.dir==1&&lcddev.id!=0X6804&&lcddev.id!=0X1963)||(lcddev.dir==0&&lcddev.id==0X1963))//横屏时，对6804和1963不改变扫描方向！竖屏时1963改变方向
-	{			   
-		switch(dir)//方向转换
-		{
-			case 0:dir=6;break;
-			case 1:dir=7;break;
-			case 2:dir=4;break;
-			case 3:dir=5;break;
-			case 4:dir=1;break;
-			case 5:dir=0;break;
-			case 6:dir=3;break;
-			case 7:dir=2;break;	     
-		}
-	} 
+	
 	if(lcddev.id==0x9341||lcddev.id==0X6804||lcddev.id==0X5310||lcddev.id==0X5510||lcddev.id==0X1963)//9341/6804/5310/5510/1963,特殊处理
 	{
 		switch(dir)
@@ -512,30 +499,6 @@ void LCD_Display_Dir(u8 dir)
 			lcddev.wramcmd=0X2C;
 	 		lcddev.setxcmd=0X2A;
 			lcddev.setycmd=0X2B;  	 
-			if(lcddev.id==0X6804||lcddev.id==0X5310)
-			{
-				lcddev.width=320;
-				lcddev.height=480;
-			}
-		}else if(lcddev.id==0x5510)
-		{
-			lcddev.wramcmd=0X2C00;
-	 		lcddev.setxcmd=0X2A00;
-			lcddev.setycmd=0X2B00; 
-			lcddev.width=480;
-			lcddev.height=800;
-		}else if(lcddev.id==0X1963)
-		{
-			lcddev.wramcmd=0X2C;	//设置写入GRAM的指令 
-			lcddev.setxcmd=0X2B;	//设置写X坐标指令
-			lcddev.setycmd=0X2A;	//设置写Y坐标指令
-			lcddev.width=480;		//设置宽度480
-			lcddev.height=800;		//设置高度800  
-		}else
-		{
-			lcddev.wramcmd=0X22;
-	 		lcddev.setxcmd=0X20;
-			lcddev.setycmd=0X21;  
 		}
 	}else 				//横屏
 	{	  				
@@ -547,35 +510,11 @@ void LCD_Display_Dir(u8 dir)
 			lcddev.wramcmd=0X2C;
 	 		lcddev.setxcmd=0X2A;
 			lcddev.setycmd=0X2B;  	 
-		}else if(lcddev.id==0X6804)	 
-		{
- 			lcddev.wramcmd=0X2C;
-	 		lcddev.setxcmd=0X2B;
-			lcddev.setycmd=0X2A; 
-		}else if(lcddev.id==0x5510)
-		{
-			lcddev.wramcmd=0X2C00;
-	 		lcddev.setxcmd=0X2A00;
-			lcddev.setycmd=0X2B00; 
-			lcddev.width=800;
-			lcddev.height=480;
-		}else if(lcddev.id==0X1963)
-		{
-			lcddev.wramcmd=0X2C;	//设置写入GRAM的指令 
-			lcddev.setxcmd=0X2A;	//设置写X坐标指令
-			lcddev.setycmd=0X2B;	//设置写Y坐标指令
-			lcddev.width=800;		//设置宽度800
-			lcddev.height=480;		//设置高度480  
 		}else
 		{
 			lcddev.wramcmd=0X22;
 	 		lcddev.setxcmd=0X21;
 			lcddev.setycmd=0X20;  
-		}
-		if(lcddev.id==0X6804||lcddev.id==0X5310)
-		{ 	 
-			lcddev.width=480;
-			lcddev.height=320; 			
 		}
 	} 
 	LCD_Scan_Dir(DFT_SCAN_DIR);	//默认扫描方向
@@ -670,9 +609,9 @@ void LCD_Init(void)
 	SPI3_Init();
 	
 	LCD_RST_CLR;//Reset before LCD Init.
-	delay_ms(100);	
+	delay_ms(60);	
 	LCD_RST_SET;
-	delay_ms(50);     
+	delay_ms(30);     
 			 
 // 	delay_ms(50); // delay 50 ms 
 // 	LCD_WriteReg(0x0000,0x0001);
@@ -915,18 +854,13 @@ void LCD_Init(void)
 	LCD_WR_DATA(0x00);
 	LCD_WR_DATA(0xef);	 
 	LCD_WR_REG(0x11); //Exit Sleep
-	delay_ms(120);
+	delay_ms(100);
 	LCD_WR_REG(0x29); //display on	
 	
-	lcddev.dir=1;//横屏
-	lcddev.width=320;
-	lcddev.height=240;
-	lcddev.setxcmd = 0x2A;
-	lcddev.setycmd = 0x2B;	
-	lcddev.wramcmd = 0x2C;
-	//LCD_WriteReg(0x36,0x6C);
-	//LCD_Display_Dir(0);		//默认为竖屏
-	LCD_Clear(GREEN);
+	lcddev.id=0X9341;
+//	lcddev.dir=1;//横屏
+	LCD_Display_Dir(DFT_SCAN_DIR);		//默认为竖屏
+	LCD_Clear(GRAY);
 }  
 
 /*************************************************

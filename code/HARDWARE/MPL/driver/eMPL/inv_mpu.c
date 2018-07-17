@@ -3500,13 +3500,13 @@ u8 mpu_mpl_get_data(float *pitch,float *roll,float *yaw)
     int8_t accuracy;
     
 	if(dmp_read_fifo(gyro, accel_short, quat, &sensor_timestamp, &sensors,&more))return 1;	 
-
+	
     if(sensors&INV_XYZ_GYRO)
     {
         inv_build_gyro(gyro,sensor_timestamp);  		//把新数据发送给MPL
         mpu_get_temperature(&temperature,&sensor_timestamp);
         inv_build_temp(temperature,sensor_timestamp);   //把温度值发给MPL，只有陀螺仪需要温度值
-    } 
+    }
     if(sensors&INV_XYZ_ACCEL)
     {
         accel[0] = (long)accel_short[0];

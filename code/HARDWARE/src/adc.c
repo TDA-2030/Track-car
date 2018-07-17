@@ -20,41 +20,42 @@
 //2,新增Get_Adc3函数,用于读取ADC3的某个通道
 ////////////////////////////////////////////////////////////////////////////////// 
 
-//初始化ADC
-//这里我们仅以规则通道为例
-//我们开启了ADC1_CH5和内部温度传感器通道(CH16)
-void  Adc_Init(void)
-{
-	//先初始化IO口
- 	RCC->APB2ENR|=1<<8;    	//使能ADC1时钟
-	RCC->AHB1ENR|=1<<0;    	//使能PORTA时钟
-	GPIO_Set(GPIOA,PIN5,GPIO_MODE_AIN,0,0,GPIO_PUPD_PU);	//PA5,模拟输入,下拉
 
-	RCC->APB2RSTR|=1<<8;   	//ADCs复位
-	RCC->APB2RSTR&=~(1<<8);	//复位结束	 
-	ADC->CCR=1<<16;			//ADCCLK=PCLK2/4=84/4=21Mhz,ADC时钟最好不要超过36Mhz
- 	ADC->CCR|=1<<23;		//使能内部温度传感器
+//初始化ADC
+//开启ADC1_CH8 	ADC1_CH9
+void  Adc_Init(void)
+{    
+	//先初始化IO口
+ 	RCC->APB2ENR|=1<<8;    	//使能ADC1时钟 高电平使能
+	RCC->AHB1ENR|=1<<1;    	//使能PORTB时钟	即GPIOB
+	GPIO_Set(GPIOB,PIN0,GPIO_MODE_AIN,0,0,GPIO_PUPD_NONE);	//PB0,模拟输入,不上下拉
+	GPIO_Set(GPIOB,PIN1,GPIO_MODE_AIN,0,0,GPIO_PUPD_NONE);	//PB1,模拟输入,不上下拉
 	
+	RCC->APB2RSTR|=1<<8;   	//ADCs复位。0-31中第8位，1复位，0保持
+	RCC->APB2RSTR&=~(1<<8);	//ADCs退出复位状态，不然ADC_DR等寄存器一直处于复位状态	 
+	ADC->CCR=3<<16;			//ADCCLK=PCLK2/4=84/4=21Mhz,ADC时钟最好不要超过36Mhz 8分频
+	ADC->CCR|=1<<23;		//使能内部温度传感器
+ 	
 	ADC1->CR1=0;   			//CR1设置清零
 	ADC1->CR2=0;   			//CR2设置清零
 	ADC1->CR1|=0<<24;      	//12位模式
 	ADC1->CR1|=0<<8;    	//非扫描模式	
 	
-	ADC1->CR2&=~(1<<1);    	//单次转换模式
- 	ADC1->CR2&=~(1<<11);   	//右对齐	
-	ADC1->CR2|=0<<28;    	//软件触发
+	ADC1->CR2&=~(1<<1);    	//单次转换模式，单次转换
+ 	ADC1->CR2&=~(1<<11);   	//右对齐
+	ADC1->CR2|=0<<28;    	//软件触发，禁止外部触发
 	
-	ADC1->SQR1&=~(0XF<<20);
-	ADC1->SQR1|=0<<20;     	//1个转换在规则序列中 也就是只转换规则序列1 			   
-	//设置通道5的采样时间
-	ADC1->SMPR2&=~(7<<(3*5));		//通道5采样时间清空	  
- 	ADC1->SMPR2|=7<<(3*5); 			//通道5  480个周期,提高采样时间可以提高精确度	
-
-	ADC1->SMPR1&=~(7<<(3*(16-10))); //清除通道16原来的设置	 
-	ADC1->SMPR1|=7<<(3*(16-10));   	//通道16 480周期,提高采样时间可以提高精确度
-	
+	ADC1->SQR1&=~(0XF<<20); //先清零再写值
+	ADC1->SQR1|=1<<20;     	//2个转换在规则序列中 也就是只转换规则序列1和2			   
+	//设置通道8，9的采样时间
+	ADC1->SMPR2&=~(7<<(3*8));//通道8采样时间清空
+	ADC1->SMPR2&=~(7<<(3*9));//通道9采样时间清空
+ 	ADC1->SMPR2|=7<<(3*8); 	//通道8  480个周期,提高采样时间可以提高精确度	
+	ADC1->SMPR2|=7<<(3*9); 	//通道9  480个周期,提高采样时间可以提高精确度
  	ADC1->CR2|=1<<0;	   	//开启AD转换器	  
 }
+
+
 //获得ADC值
 //ch:通道值 0~16
 //返回值:转换结果
@@ -71,16 +72,23 @@ u16 Get_Adc(u8 ch)
 //ch:通道编号
 //times:获取次数
 //返回值:通道ch的times次转换结果平均值
-u16 Get_Adc_Average(u8 ch,u8 times)
+float Get_Adc_Average(u8 ch,u8 times)
 {
-	u32 temp_val=0;
-	u8 t;
-	for(t=0;t<times;t++)
+	static float last_val1,last_val2;
+	
+	float temp_val=0;
+	
+	temp_val = (float)(Get_Adc(ch))*2.5/40.96;
+	if(ch==8)
 	{
-		temp_val+=Get_Adc(ch);
-		delay_ms(5);
+		last_val1 = last_val1*0.92+temp_val*0.08;
+		return last_val1;
 	}
-	return temp_val/times;
+	else if(ch==9)
+	{
+		last_val2 = last_val2*0.8+temp_val*0.2;
+		return last_val2;
+	}
 }  
 //得到温度值
 //返回值:温度值(扩大了100倍,单位:℃.)
@@ -95,48 +103,6 @@ short Get_Temprate(void)
 	result=temperate*=100;					//扩大100倍.
 	return result;
 }
-//初始化ADC3
-//这里我们仅以规则通道为例
-//我们默认仅开启ADC3_CH5																	   
-void  Adc3_Init(void)
-{    
-	//先初始化IO口
- 	RCC->APB2ENR|=1<<10;   	//使能ADC3时钟  
-	//RCC->APB2RSTR|=1<<8;   	//ADCs复位(注意,所有ADC都会被复位.)
-	//RCC->APB2RSTR&=~(1<<8);	//复位结束	 
-	ADC->CCR|=1<<16;		//ADCCLK=PCLK2/4=84/4=21Mhz,ADC时钟最好不要超过36Mhz
-   	 
-	ADC3->CR1=0;   			//CR1设置清零
-	ADC3->CR2=0;   			//CR2设置清零
-	ADC3->CR1|=0<<24;      	//12位模式
-	ADC3->CR1|=0<<8;    	//非扫描模式	
-	
-	ADC3->CR2&=~(1<<1);    	//单次转换模式
- 	ADC3->CR2&=~(1<<11);   	//右对齐	
-	ADC3->CR2|=0<<28;    	//软件触发
-	
-	ADC3->SQR1&=~(0XF<<20);
-	ADC3->SQR1|=0<<20;     	//1个转换在规则序列中 也就是只转换规则序列1 			   
-	//设置通道5的采样时间
-	ADC3->SMPR2&=~(7<<(3*5));//通道5采样时间清空	  
- 	ADC3->SMPR2|=7<<(3*5); 	//通道5  480个周期,提高采样时间可以提高精确度	
- 	ADC3->CR2|=1<<0;	   	//开启AD转换器	  
-}	 
-//获得ADC值
-//ch:通道值 0~16
-//返回值:转换结果
-u16 Get_Adc3(u8 ch)   
-{
-	//设置转换序列	  		 
-	ADC3->SQR3&=0XFFFFFFE0;//规则序列1 通道ch
-	ADC3->SQR3|=ch;		  			    
-	ADC3->CR2|=1<<30;       //启动规则转换通道 
-	while(!(ADC3->SR&1<<1));//等待转换结束	 	   
-	return ADC3->DR;		//返回adc值	
-} 
-
-
-
 
 
 

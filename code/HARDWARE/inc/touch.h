@@ -50,7 +50,7 @@ typedef struct
 //   1,横屏(适合左右为Y坐标,上下为X坐标的TP) 
 //b1~6:保留.
 //b7:0,电阻屏
-//   1,电容屏 
+//   1,电容屏
 	u8 touchtype;
 	u8 check;
 }_m_tp_dev;
@@ -58,11 +58,11 @@ typedef struct
 extern _m_tp_dev tp_dev;	 	//触屏控制器在touch.c里面定义
 
 //电阻屏芯片连接引脚	   
-#define PEN  		PBin(1)  	//T_PEN
-#define DOUT 		PBin(2)   	//T_MISO
-#define TDIN 		PFout(11)  	//T_MOSI
-#define TCLK 		PBout(0)  	//T_SCK
-#define TCS  		PCout(13)  	//T_CS  
+#define PEN  		PEin(0)  	//T_PEN
+#define DOUT 		PEin(1)   	//T_MISO
+#define TDIN 		PEout(2)  	//T_MOSI
+#define TCLK 		PEout(4)  	//T_SCK
+#define TCS  		PEout(3)  	//T_CS  
    
 //电阻屏函数
 void TP_Write_Byte(u8 num);						//向控制芯片写入一个数据

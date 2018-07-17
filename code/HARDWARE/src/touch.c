@@ -172,7 +172,7 @@ void TP_Drow_Touch_Point(u16 x,u16 y,u16 color)
 	LCD_DrawPoint(x-1,y-1);
 	LCD_Draw_Circle(x,y,6);//画中心圈
 }	  
-//画一个大点(2*2的点)		   
+//画一个大点(2*2的点)
 //x,y:坐标
 //color:颜色
 void TP_Draw_Big_Point(u16 x,u16 y,u16 color)
@@ -221,12 +221,18 @@ u8 TP_Scan(u8 tp)
 }	  
 //////////////////////////////////////////////////////////////////////////	 
 //保存在EEPROM里面的地址区间基址,占用13个字节(RANGE:SAVE_ADDR_BASE~SAVE_ADDR_BASE+12)
-#define SAVE_ADDR_BASE 40
+#include "w25qxx.h"
 //保存校准参数										    
 void TP_Save_Adjdata(void)
 {
 	tp_dev.check=0x0a;
-	STMFLASH_Write(TOUCH_SAVE_ADDR_BASE,(u32*)&tp_dev.xfac,4);			 
+//	RTC_Write_BKR(11,*(u32*)&tp_dev.xfac);
+//	RTC_Write_BKR(12,*(u32*)&tp_dev.yfac);
+//	RTC_Write_BKR(13,*(u32*)&tp_dev.xoff);
+//	RTC_Write_BKR(14,*(u32*)&tp_dev.yoff);
+//	RTC_Write_BKR(15,*(u32*)&tp_dev.touchtype);
+//	RTC_Write_BKR(16,*(u32*)&tp_dev.check);
+	W25QXX_Write((u8*)&tp_dev.xfac,1024*1024*15,14);
 	//保存校正结果!
 }
 //得到保存在EEPROM里面的校准值
@@ -234,9 +240,15 @@ void TP_Save_Adjdata(void)
 //        0，获取失败，要重新校准
 u8 TP_Get_Adjdata(void)
 {					  
-	s32 tempfac;
-	tempfac=STMFLASH_ReadWord(TOUCH_SAVE_ADDR_BASE+13);//读取标记字,看是否校准过！
-	if(tempfac==0X0A)//触摸屏已经校准过了			   
+//	tp_dev.xfac = *(float*)RTC_Read_BKR(11);
+//	tp_dev.yfac = *(float*)RTC_Read_BKR(12);
+//	tp_dev.xoff = *(short*)RTC_Read_BKR(13);
+//	tp_dev.yoff = *(short*)RTC_Read_BKR(14);
+//	tp_dev.touchtype = *(u8*)RTC_Read_BKR(15);
+//	tp_dev.check = *(u8*)RTC_Read_BKR(16);
+	W25QXX_Read((u8*)&tp_dev.xfac,1024*1024*15,14);
+	//读取标记字,看是否校准过！
+	if(tp_dev.check==0X0A)//触摸屏已经校准过了			   
 	{
 		//STMFLASH_Read(TOUCH_SAVE_ADDR_BASE,(u32*)&tp_dev.xfac,4);
 		if(tp_dev.touchtype)//X,Y方向与屏幕相反
@@ -279,7 +291,7 @@ void TP_Adj_Info_Show(u16 x0,u16 y0,u16 x1,u16 y1,u16 x2,u16 y2,u16 x3,u16 y3,u1
  	LCD_ShowNum(40+56,240,fac,3,16); 	//显示数值,该数值必须在95~105范围之内.
 
 }
-		 
+
 //触摸屏校准代码
 //得到四个校准参数
 void TP_Adjust(void)
@@ -305,7 +317,7 @@ void TP_Adjust(void)
 	{
 		tp_dev.scan(1);//扫描物理坐标
 		if((tp_dev.sta&0xc0)==TP_CATH_PRES)//按键按下了一次(此时按键松开了.)
-		{	
+		{
 			outtime=0;		
 			tp_dev.sta&=~(1<<6);//标记按键已经被处理过了.
 						   			   
@@ -447,7 +459,7 @@ u8 TP_Init(void)
 	{ 										    
 		TP_Adjust();  	//屏幕校准 
 	}
-	TP_Get_Adjdata();
+	
 	
 	return 1; 									 
 }

@@ -156,7 +156,7 @@ void RTC_Get_Date(u8 *year,u8 *month,u8 *date,u8 *week)
 //       2,进入初始化模式失败;
 u8 MyRTC_Init(void)
 {
-	u16 retry=0X1FFF; 
+	u16 retry=1000;
 	RCC->APB1ENR|=1<<28;			//使能电源接口时钟
 	PWR->CR|=1<<8;					//后备区域访问使能(RTC+SRAM)
 	if(RTC_Read_BKR(0)!=0X5050)		//是否第一次配置?

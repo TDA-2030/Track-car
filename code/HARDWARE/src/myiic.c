@@ -16,8 +16,8 @@
 //初始化IIC
 void IIC_Init(void)
 {					     
-	RCC->AHB1ENR|=1<<7;    //使能PORTH时钟	   	  
-	GPIO_Set(GPIOH,PIN4|PIN5,GPIO_MODE_OUT,GPIO_OTYPE_PP,GPIO_SPEED_50M,GPIO_PUPD_PU);//PH4/PH5设置 
+	RCC->AHB1ENR|=1<<1;    //使能PORTB时钟	   	  
+	GPIO_Set(GPIOB,PIN6|PIN7,GPIO_MODE_OUT,GPIO_OTYPE_PP,GPIO_SPEED_50M,GPIO_PUPD_PU);//PH4/PH5设置 
 	IIC_SCL=1;
 	IIC_SDA=1;
 }
@@ -119,7 +119,7 @@ u8 IIC_Read_Byte(unsigned char ack)
         receive<<=1;
         if(READ_SDA)receive++;   
 		delay_us(1); 
-    }					 
+    }
     if (!ack)
         IIC_NAck();//发送nACK
     else

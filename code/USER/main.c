@@ -16,6 +16,8 @@
 #include "touch.h"
 #include "rtc.h"
 #include "pwm.h"
+#include "beep.h"
+#include "adc.h"
 
 #include "mpu9250.h"
 #include "inv_mpu.h"
@@ -73,31 +75,106 @@ int main(void)
 	u8 key;				//键值
 	u8 pause=0;			//暂停标记
 	u8 t;
-	u16 temp;
+	//u16 temp;
 	u16 *picindextbl;	//图片索引表 
 	
-	GPIO_InitTypeDef  GPIO_InitStructure;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOG,ENABLE);	//使能GPIOC的外设时钟
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;	//选择要用的GPIO引脚		 
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//设置引脚为普通输出模式		
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//设置引脚为推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//设置引脚速度为100MHz
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//设置引脚为上拉 		 
-	GPIO_Init(GPIOB, &GPIO_InitStructure);//调用库函数，初始化GPIO
+	float pitch,roll,yaw; 	//欧拉角
+	short aacx,aacy,aacz;	//加速度传感器原始数据
+	short gyrox,gyroy,gyroz;//陀螺仪原始数据 
+	short temp;		        //温度
 	
 	//GPIOB->ODR ^= GPIO_Pin_9;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
+	BEEP_Init();
+	KEY_Init();					//按键初始化 
 	delay_init(168);  //初始化延时函数
 	uart_init(115200);		//初始化串口波特率为115200
 	LED_Init();					//初始化LED 
  	LCD_Init();					//LCD初始化  
- 	//KEY_Init();					//按键初始化 
-	//W25QXX_Init();				//初始化W25Q128
-	//GPIOB->ODR ^= GPIO_Pin_9;
-	LCD_DrawLine(1,1,100,100);
+
+	Set_Beep(100,10);
+	Set_Beep(100,11);
+	Set_Beep(100,13);
+	
+	MyRTC_Init();
+	W25QXX_Init();				//初始化W25Q128
+	tp_dev.init();
+	Adc_Init();
+	while(MPU_Init())
+	{
+		GPIOE->ODR ^= GPIO_Pin_7;
+		GPIOE->ODR ^= GPIO_Pin_8;
+		GPIOB->ODR ^= GPIO_Pin_2;
+		Set_Beep(100,1);
+	}
+	
+	if(KEY0==0&&KEY1==0) TP_Adjust();  	//屏幕校准 
+	
 	while(1)
 	{
-		GPIOB->ODR ^= GPIO_Pin_9;
+		if(PEN==0)
+		{
+			tp_dev.scan(0);
+			LCD_DrawPoint(tp_dev.x[0],tp_dev.y[0]);
+			LCD_DrawPoint(tp_dev.x[0]+1,tp_dev.y[0]+1);
+		}
+		
+		if(mpu_mpl_get_data(&pitch,&roll,&yaw)==0)
+        {
+			GPIOE->ODR ^= GPIO_Pin_7;
+            temp=MPU_Get_Temperature();	//得到温度值
+			MPU_Get_Accelerometer(&aacx,&aacy,&aacz);	//得到加速度传感器数据
+			MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);	//得到陀螺仪数据
+//  			if(report)mpu9250_send_data(aacx,aacy,aacz,gyrox,gyroy,gyroz);//发送加速度+陀螺仪原始数据
+//			if(report)usart1_report_imu((int)(roll*100),(int)(pitch*100),(int)(yaw*100),0,0);
+			if((t%10)==0)
+			{
+				if(temp<0)
+				{
+					LCD_ShowChar(30+48,200,'-',16,0);		//显示负号
+					temp=-temp;		//转为正数
+				}else LCD_ShowChar(30+48,200,' ',16,0);		//去掉负号 
+				LCD_ShowNum(30+48+8,200,temp/100,3,16);		//显示整数部分	    
+				LCD_ShowNum(30+48+40,200,temp%10,1,16);		//显示小数部分 
+				temp=pitch*10;
+				if(temp<0)
+				{
+					LCD_ShowChar(30+48,220,'-',16,0);		//显示负号
+					temp=-temp;		//转为正数
+				}else LCD_ShowChar(30+48,220,' ',16,0);		//去掉负号 
+				LCD_ShowNum(30+48+8,220,temp/10,3,16);		//显示整数部分	    
+				LCD_ShowNum(30+48+40,220,temp%10,1,16);		//显示小数部分 
+				temp=roll*10;
+				if(temp<0)
+				{
+					LCD_ShowChar(30+48,240,'-',16,0);		//显示负号
+					temp=-temp;		//转为正数
+				}else LCD_ShowChar(30+48,240,' ',16,0);		//去掉负号 
+				LCD_ShowNum(30+48+8,240,temp/10,3,16);		//显示整数部分	    
+				LCD_ShowNum(30+48+40,240,temp%10,1,16);		//显示小数部分 
+				temp=yaw*10;
+				if(temp<0)
+				{
+					LCD_ShowChar(30+48,260,'-',16,0);		//显示负号
+					temp=-temp;		//转为正数
+				}else LCD_ShowChar(30+48,260,' ',16,0);		//去掉负号 
+				LCD_ShowNum(30+48+8,260,temp/10,3,16);		//显示整数部分	    
+				LCD_ShowNum(30+48+40,260,temp%10,1,16);		//显示小数部分  
+				t=0;
+				LED0=!LED0;//DS0闪烁 
+			}
+		}
+		
+		LCD_ShowNum(30,20,Get_Adc_Average(8,20)*100/11,4,16);
+		LCD_ShowNum(30,60,Get_Adc_Average(9,3)*5.7,4,16);
+		delay_ms(8);
+	}
+ 	
+	while(1)
+	{
+		GPIOE->ODR ^= GPIO_Pin_7;
+		GPIOE->ODR ^= GPIO_Pin_8;
+		
 		delay_ms(200);
 	}
 	
@@ -108,16 +185,14 @@ int main(void)
  	f_mount(fs[1],"1:",1); 	//挂载FLASH.
 	POINT_COLOR=RED;      
 	while(font_init()) 		//检查字库
-	{	    
+	{
 		LCD_ShowString(30,50,200,16,16,"Font Error!");
 		delay_ms(200);
 		LCD_Fill(30,50,240,66,WHITE);//清除显示
 		delay_ms(200);
 	}
 	
-	tp_dev.init();
-	MyRTC_Init();
-	MPU_Init(); 
+	
  	Show_Str(30,50,200,16,"Explorer STM32F4开发板",16,0);				    	 
 	
  	while(f_opendir(&picdir,"0:/PICTURE"))//打开图片文件夹

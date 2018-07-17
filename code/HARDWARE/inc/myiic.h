@@ -13,14 +13,14 @@
 //Copyright(C) 广州市星翼电子科技有限公司 2014-2024
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 	
-   	   		   
+
 //IO方向设置
-#define SDA_IN()  {GPIOH->MODER&=~(3<<(5*2));GPIOH->MODER|=0<<5*2;}	//PH5输入模式
-#define SDA_OUT() {GPIOH->MODER&=~(3<<(5*2));GPIOH->MODER|=1<<5*2;} //PH5输出模式
-//IO操作函数	 
-#define IIC_SCL    PHout(4) //SCL
-#define IIC_SDA    PHout(5) //SDA	 
-#define READ_SDA   PHin(5)  //输入SDA 
+#define SDA_IN()  {GPIOB->MODER&=~(3<<(7*2));GPIOB->MODER|=0<<7*2;}	//PB7输入模式
+#define SDA_OUT() {GPIOB->MODER&=~(3<<(7*2));GPIOB->MODER|=1<<7*2;} //PB7输出模式
+//IO操作函数
+#define IIC_SCL    PBout(6) //SCL
+#define IIC_SDA    PBout(7) //SDA
+#define READ_SDA   PBin(7)  //输入SDA
 
 //IIC所有操作函数
 void IIC_Init(void);                //初始化IIC的IO口				 
