@@ -239,7 +239,8 @@ void TP_Save_Adjdata(void)
 //返回值：1，成功获取数据
 //        0，获取失败，要重新校准
 u8 TP_Get_Adjdata(void)
-{					  
+{	
+	tp_dev.check=0;
 //	tp_dev.xfac = *(float*)RTC_Read_BKR(11);
 //	tp_dev.yfac = *(float*)RTC_Read_BKR(12);
 //	tp_dev.xoff = *(short*)RTC_Read_BKR(13);

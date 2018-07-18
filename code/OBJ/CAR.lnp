@@ -2,6 +2,7 @@
 "..\obj\main.o"
 "..\obj\stm32f4xx_it.o"
 "..\obj\system_stm32f4xx.o"
+"..\obj\pesensor_track.o"
 "..\obj\adc.o"
 "..\obj\key.o"
 "..\obj\led.o"

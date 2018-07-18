@@ -1,5 +1,5 @@
 Dependencies for Project 'car', Target 'CAR': (DO NOT MODIFY !)
-F (.\main.c)(0x5B4EB610)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5B4F1EBB)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -58,9 +58,10 @@ I (..\PICTURE\integer.h)(0x4BD31212)
 I (..\PICTURE\gif.h)(0x5B3F51C5)
 I (..\HARDWARE\inc\touch.h)(0x5B4DA661)
 I (..\HARDWARE\inc\rtc.h)(0x5B3F937D)
-I (..\HARDWARE\inc\pwm.h)(0x5B4EAF60)
+I (..\HARDWARE\inc\pwm.h)(0x5B4EF32B)
 I (..\HARDWARE\inc\beep.h)(0x5B4D95F9)
 I (..\HARDWARE\inc\adc.h)(0x5B4EA430)
+I (..\HARDWARE\inc\PESensor_Track.h)(0x5B4F0341)
 I (..\HARDWARE\inc\mpu9250.h)(0x5714A20B)
 I (..\HARDWARE\MPL\driver\eMPL\inv_mpu.h)(0x5714A20B)
 I (..\HARDWARE\MPL\driver\eMPL\inv_mpu_dmp_motion_driver.h)(0x5714A20B)
@@ -139,7 +140,45 @@ I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
-F (..\HARDWARE\src\adc.c)(0x5B4EB5C4)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\adc.o --omf_browse ..\obj\adc.crf --depend ..\obj\adc.d)
+F (..\HARDWARE\src\PESensor_Track.c)(0x5B4F1EBB)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\pesensor_track.o --omf_browse ..\obj\pesensor_track.crf --depend ..\obj\pesensor_track.d)
+I (..\USER\stm32f4xx.h)(0x542BA483)
+I (..\CORE\core_cm4.h)(0x53C7D530)
+I (E:\MySoftware\Keil_ARM\ARM\ARMCC\include\stdint.h)(0x57F606B8)
+I (..\CORE\core_cmInstr.h)(0x53C7D530)
+I (..\CORE\core_cmFunc.h)(0x53C7D530)
+I (..\CORE\core_cm4_simd.h)(0x53C7D530)
+I (..\USER\system_stm32f4xx.h)(0x53DBA499)
+I (..\USER\stm32f4xx_conf.h)(0x53DBB3CB)
+I (..\FWLIB\inc\stm32f4xx_adc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_crc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dma.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_exti.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_flash.h)(0x53DF9330)
+I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_spi.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_tim.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_usart.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x53DBAFAD)
+I (..\FWLIB\inc\misc.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_hash.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_rng.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_can.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
+I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
+I (..\HARDWARE\inc\PESensor_Track.h)(0x5B4F0341)
+I (..\SYSTEM\delay\delay.h)(0x5B3F51C5)
+I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
+F (..\HARDWARE\src\adc.c)(0x5B4EEB3C)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\adc.o --omf_browse ..\obj\adc.crf --depend ..\obj\adc.d)
 I (..\HARDWARE\inc\adc.h)(0x5B4EA430)
 I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -329,8 +368,8 @@ I (..\FWLIB\inc\stm32f4xx_dac.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x53DBAFAD)
 I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\delay\delay.h)(0x5B3F51C5)
-F (..\HARDWARE\src\pwm.c)(0x5B4EB781)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\pwm.o --omf_browse ..\obj\pwm.crf --depend ..\obj\pwm.d)
-I (..\HARDWARE\inc\pwm.h)(0x5B4EAF60)
+F (..\HARDWARE\src\pwm.c)(0x5B4EF92C)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\pwm.o --omf_browse ..\obj\pwm.crf --depend ..\obj\pwm.d)
+I (..\HARDWARE\inc\pwm.h)(0x5B4EF32B)
 I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
 I (..\USER\stm32f4xx.h)(0x542BA483)
 I (..\CORE\core_cm4.h)(0x53C7D530)
@@ -523,7 +562,7 @@ I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x53DBAFAD)
 I (..\SYSTEM\delay\delay.h)(0x5B3F51C5)
 I (..\SYSTEM\usart\usart.h)(0x5B3F51C5)
 I (E:\MySoftware\Keil_ARM\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-F (..\HARDWARE\src\tft_display.c)(0x5B4D9893)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\tft_display.o --omf_browse ..\obj\tft_display.crf --depend ..\obj\tft_display.d)
+F (..\HARDWARE\src\tft_display.c)(0x5B4F1D6D)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\tft_display.o --omf_browse ..\obj\tft_display.crf --depend ..\obj\tft_display.d)
 I (..\HARDWARE\inc\tft_display.h)(0x5B4C945C)
 I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
 I (..\USER\stm32f4xx.h)(0x542BA483)
@@ -565,7 +604,7 @@ I (..\HARDWARE\inc\font.h)(0x52C52FE7)
 I (..\SYSTEM\usart\usart.h)(0x5B3F51C5)
 I (E:\MySoftware\Keil_ARM\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (..\SYSTEM\delay\delay.h)(0x5B3F51C5)
-F (..\HARDWARE\src\touch.c)(0x5B4DAF42)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\touch.o --omf_browse ..\obj\touch.crf --depend ..\obj\touch.d)
+F (..\HARDWARE\src\touch.c)(0x5B4F0B04)(--c99 -c --cpu Cortex-M4.fp -g -O2 --apcs=interwork --split_sections -I ..\CORE -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\USER -I ..\HARDWARE\inc -I ..\MALLOC -I ..\USMART -I ..\FATFS\exfuns -I ..\FATFS\src -I ..\TEXT -I ..\PICTURE -I ..\FWLIB\inc -I ..\HARDWARE\MPL\driver\eMPL -I ..\HARDWARE\MPL\driver\include -I ..\HARDWARE\MPL\driver\stm32L -I ..\HARDWARE\MPL\eMPL-hal -I ..\HARDWARE\MPL\mllite -I ..\HARDWARE\MPL\mpl-I "F:\学校文件\学校比赛\机器人大赛文件\2018\寻线越野赛\Track car\code\USER\RTE"-I E:\MySoftware\Keil_ARM\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I E:\MySoftware\Keil_ARM\ARM\CMSIS\Include-D__UVISION_VERSION="520" -DSTM32F40_41xxx -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -DUSE_DMP -DMPL_LOG_NDEBUG="1" -DEMPL -DMPU9250 -DEMPL_TARGET_STM32F4-o ..\obj\touch.o --omf_browse ..\obj\touch.crf --depend ..\obj\touch.d)
 I (..\HARDWARE\inc\touch.h)(0x5B4DA661)
 I (..\SYSTEM\sys\sys.h)(0x5B3F925F)
 I (..\USER\stm32f4xx.h)(0x542BA483)

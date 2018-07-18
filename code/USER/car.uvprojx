@@ -396,6 +396,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>APP</GroupName>
+          <Files>
+            <File>
+              <FileName>PESensor_Track.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\src\PESensor_Track.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>HARDWARE</GroupName>
           <Files>
             <File>

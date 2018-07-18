@@ -860,7 +860,7 @@ void LCD_Init(void)
 	lcddev.id=0X9341;
 //	lcddev.dir=1;//╨Афа
 	LCD_Display_Dir(DFT_SCAN_DIR);		//д╛хон╙йЗфа
-	LCD_Clear(GRAY);
+	LCD_Clear(LIGHTBLUE);
 }  
 
 /*************************************************
