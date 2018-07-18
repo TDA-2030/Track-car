@@ -91,7 +91,11 @@ int main(void)
 	uart_init(115200);		//初始化串口波特率为115200
 	LED_Init();					//初始化LED 
  	LCD_Init();					//LCD初始化  
-
+	TIM1_PWM_Init();
+	TIM2_PWM_Init();
+	TIM4_PWM_Init();
+	TIM5_PWM_Init();
+	
 	Set_Beep(100,10);
 	Set_Beep(100,11);
 	Set_Beep(100,13);
@@ -164,6 +168,8 @@ int main(void)
 				LED0=!LED0;//DS0闪烁 
 			}
 		}
+		Servor_Act_Angle(1,30);delay_ms(800);
+		Servor_Act_Angle(1,120);delay_ms(800);
 		
 		LCD_ShowNum(30,20,Get_Adc_Average(8,20)*100/11,4,16);
 		LCD_ShowNum(30,60,Get_Adc_Average(9,3)*5.7,4,16);

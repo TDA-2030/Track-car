@@ -1,30 +1,15 @@
 #include "adc.h"
 #include "delay.h"		 
-//////////////////////////////////////////////////////////////////////////////////	 
-//本程序只供学习使用，未经作者许可，不得用于其它任何用途
-//ALIENTEK STM32F407开发板
-//ADC 驱动代码	   
-//正点原子@ALIENTEK
-//技术论坛:www.openedv.com
-//创建日期:2014/5/6
-//版本：V1.1
-//版权所有，盗版必究。
-//Copyright(C) 广州市星翼电子科技有限公司 2014-2024
-//All rights reserved									   
-//********************************************************************************
-//20140507 	V1.1
-//1,修改Adc_Init函数,支持内部温度传感器数据采集.
-//2,新增Get_Temprate函数,用于获取内部温度传感器采集到的温度值
-//20140714  V1.2
-//1,新增Adc3_Init函数,用于初始化ADC3
-//2,新增Get_Adc3函数,用于读取ADC3的某个通道
-////////////////////////////////////////////////////////////////////////////////// 
+
+
+
+static uint16_t AdcBuffer[64]={0};
 
 
 //初始化ADC
 //开启ADC1_CH8 	ADC1_CH9
 void  Adc_Init(void)
-{    
+{   
 	//先初始化IO口
  	RCC->APB2ENR|=1<<8;    	//使能ADC1时钟 高电平使能
 	RCC->AHB1ENR|=1<<1;    	//使能PORTB时钟	即GPIOB
@@ -39,9 +24,9 @@ void  Adc_Init(void)
 	ADC1->CR1=0;   			//CR1设置清零
 	ADC1->CR2=0;   			//CR2设置清零
 	ADC1->CR1|=0<<24;      	//12位模式
-	ADC1->CR1|=0<<8;    	//非扫描模式	
+	ADC1->CR1|=0<<8;    	//非扫描模式
 	
-	ADC1->CR2&=~(1<<1);    	//单次转换模式，单次转换
+	ADC1->CR2|=(1<<1);    	//连续转换模式
  	ADC1->CR2&=~(1<<11);   	//右对齐
 	ADC1->CR2|=0<<28;    	//软件触发，禁止外部触发
 	
@@ -52,7 +37,36 @@ void  Adc_Init(void)
 	ADC1->SMPR2&=~(7<<(3*9));//通道9采样时间清空
  	ADC1->SMPR2|=7<<(3*8); 	//通道8  480个周期,提高采样时间可以提高精确度	
 	ADC1->SMPR2|=7<<(3*9); 	//通道9  480个周期,提高采样时间可以提高精确度
- 	ADC1->CR2|=1<<0;	   	//开启AD转换器	  
+	
+	ADC1->SQR3&=0XFFFFF600;//规则序列1 通道ch
+	ADC1->SQR3|=((8<<5)|(9<<0));
+	
+	
+	ADC1->CR2|=1<<8;	   	//开启DMA
+	DMA2_Stream0->CR = 0;
+	DMA2_Stream0->CR |= 0<<25;
+	DMA2_Stream0->CR |= 0<<23;//存储器突发传输配置
+	DMA2_Stream0->CR |= 0<<21;//外设突发传输配置
+	DMA2_Stream0->CR |= 0<<19;
+	DMA2_Stream0->CR |= 0<<18;
+	DMA2_Stream0->CR |= 1<<16;//中优先级
+	DMA2_Stream0->CR |= 0<<15;
+	DMA2_Stream0->CR |= 1<<13;
+	DMA2_Stream0->CR |= 1<<11;
+	DMA2_Stream0->CR |= 1<<10;
+	DMA2_Stream0->CR |= 0<<9;
+	DMA2_Stream0->CR |= 1<<8;
+	DMA2_Stream0->CR |= 0<<6;
+	DMA2_Stream0->CR |= 0<<5;
+	
+	DMA2_Stream0->M0AR = (u32)AdcBuffer;
+	DMA2_Stream0->PAR  = (u32)ADC1->DR;
+	DMA2_Stream0->NDTR = 64;
+	
+	DMA2_Stream0->CR |= 1<<0; //
+	
+ 	ADC1->CR2|=1<<0;	   	//开启AD转换器
+	ADC1->CR2|=1<<30;       //启动规则转换通道
 }
 
 
@@ -63,12 +77,14 @@ u16 Get_Adc(u8 ch)
 {
 	//设置转换序列	  		 
 	ADC1->SQR3&=0XFFFFFFE0;//规则序列1 通道ch
-	ADC1->SQR3|=ch;		  			    
+	ADC1->SQR3|=ch;
 	ADC1->CR2|=1<<30;       //启动规则转换通道 
 	while(!(ADC1->SR&1<<1));//等待转换结束	 	   
 	return ADC1->DR;		//返回adc值	
 }
-//获取通道ch的转换值，取times次,然后平均 
+
+
+//获取通道ch的转换值，取times次,然后平均
 //ch:通道编号
 //times:获取次数
 //返回值:通道ch的times次转换结果平均值
@@ -76,20 +92,24 @@ float Get_Adc_Average(u8 ch,u8 times)
 {
 	static float last_val1,last_val2;
 	
-	float temp_val=0;
+	float temp_val;
 	
-	temp_val = (float)(Get_Adc(ch))*2.5/40.96;
+	
 	if(ch==8)
 	{
+		temp_val = (float)(AdcBuffer[0])*2.5/40.96;
 		last_val1 = last_val1*0.92+temp_val*0.08;
 		return last_val1;
 	}
 	else if(ch==9)
 	{
+		temp_val = (float)(AdcBuffer[1])*2.5/40.96;
 		last_val2 = last_val2*0.8+temp_val*0.2;
 		return last_val2;
 	}
-}  
+	return 0;
+}
+
 //得到温度值
 //返回值:温度值(扩大了100倍,单位:℃.)
 short Get_Temprate(void)
