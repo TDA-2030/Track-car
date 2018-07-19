@@ -188,7 +188,7 @@ int main(void)
 		Motor_Speed(1,toll);
 		
 		LCD_ShowNum(30,20,Get_Adc_Average(8,20)*100/11,4,16);
-		LCD_ShowNum(30,60,Get_Adc_Average(9,3)*5.7,4,16);
+		LCD_ShowNum(30,60,Get_Adc_Average(9,3)*5.666,4,16);
 		LCD_ShowNum(30,100,(u32)Get_Temprate(),4,16);
 		LCD_ShowNum(30,120,toll,4,16);
 		

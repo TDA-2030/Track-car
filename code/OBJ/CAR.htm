@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\CAR.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\CAR.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Jul 18 19:04:29 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Jul 18 19:31:33 2018
 <BR><P>
 <H3>Maximum Stack Usage =        432 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -684,8 +684,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
 <LI>Call Chain = __user_setup_stackheap
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
+<BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
 </UL>
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_sh
 </UL>
@@ -1665,9 +1665,9 @@ Global Symbols
 <P><STRONG><a name="[100]"></a>SD_ReadDisk</STRONG> (Thumb, 114 bytes, Stack size 40 bytes, sdio_sdcard.o(i.SD_ReadDisk))
 <BR><BR>[Stack]<UL><LI>Max Depth = 212<LI>Call Chain = SD_ReadDisk &rArr; SD_ReadMultiBlocks &rArr; SD_DMA_Config &rArr; DMA_DeInit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_ReadMultiBlocks
+<BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_ReadMultiBlocks
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_ReadBlock
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_read
 </UL>
@@ -1722,9 +1722,9 @@ Global Symbols
 <P><STRONG><a name="[104]"></a>SD_WriteDisk</STRONG> (Thumb, 108 bytes, Stack size 40 bytes, sdio_sdcard.o(i.SD_WriteDisk))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = SD_WriteDisk &rArr; SD_WriteMultiBlocks &rArr; SD_Init &rArr; SD_EnableWideBusOperation &rArr; SDEnWideBus &rArr; FindSCR &rArr; SDIO_SendCommand
 </UL>
-<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_WriteMultiBlocks
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_WriteMultiBlocks
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_WriteBlock
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disk_write
 </UL>
@@ -2015,6 +2015,12 @@ Global Symbols
 <LI>Call Chain = TP_Adjust &rArr; TP_Save_Adjdata &rArr; W25QXX_Write &rArr; W25QXX_Erase_Sector &rArr; __2printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Save_Adjdata
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Get_Adjdata
+<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Drow_Touch_Point
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Adj_Info_Show
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 <LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrt
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
@@ -2022,12 +2028,6 @@ Global Symbols
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
-<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Save_Adjdata
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Get_Adjdata
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Drow_Touch_Point
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Adj_Info_Show
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Clear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TP_Init
@@ -2484,9 +2484,9 @@ Global Symbols
 <P><STRONG><a name="[15b]"></a>inv_get_sensor_type_euler</STRONG> (Thumb, 412 bytes, Stack size 88 bytes, empl_outputs.o(i.inv_get_sensor_type_euler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = inv_get_sensor_type_euler &rArr; __hardfp_sqrtf &rArr; __set_errno
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
+<BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_q29_mult
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sqrtf
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2f
-<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_q29_mult
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_mpl_get_data
 </UL>
